@@ -13,14 +13,14 @@ Created on Thu Feb 25 07:19:49 2016
 from __future__ import absolute_import
 
 import warnings
+
 import numpy as np
 from scipy.sparse import diags
 
-from . import choice_calcs as cc
 from . import base_multinomial_cm_v2 as base_mcm
-from .estimation import LogitTypeEstimator
-from .estimation import estimate
+from . import choice_calcs as cc
 from .display_names import model_type_to_display_name
+from .estimation import LogitTypeEstimator, estimate
 
 # Create a variable that will be printed if there is a non-fatal error
 # in the MNL class construction
@@ -312,6 +312,7 @@ class MNL(base_mcm.MNDC_Model):
                 ridge=None,
                 constrained_pos=None,
                 just_point=False,
+                weights=None,
                 **kwargs):
         """
         Parameters
@@ -383,7 +384,8 @@ class MNL(base_mcm.MNDC_Model):
                                      ridge,
                                      zero_vector,
                                      split_param_vec,
-                                     constrained_pos=constrained_pos)
+                                     constrained_pos=constrained_pos,
+                                     weights=weights)
         # Set the derivative functions for estimation
         mnl_estimator.set_derivatives()
 
